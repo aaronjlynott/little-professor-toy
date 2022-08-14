@@ -1,0 +1,63 @@
+import random as rm
+
+def main():
+    level = get_level()
+    score = counting_problems(level)
+    print('Score: ', score)
+
+def get_level():
+    while True:
+        try:
+            level = int(input('Level: '))
+            if level == int('1') or level == int('2') or level == int('3'):
+                break
+        except:
+            pass
+    return level
+
+def generate_integer(level):
+    if level == 1:
+        num1 = rm.randint(0, 9)
+        num2 = rm.randint(0, 9)
+
+    elif level == 2:
+        num1 = rm.randint(10, 99)
+        num2 = rm.randint(10, 99)
+
+    else:
+        num1 = rm.randint(100, 999)
+        num2 = rm.randint(100, 999)
+
+    return num1, num2
+
+def tracking_attempts(num1, num2):
+    attempts = 1
+    while attempts <=3:
+        try:
+            answer = int(input(f'{num1} + {num2} = '))
+            if answer == num1 + num2:
+                return True
+            else:
+                attempts += 1
+                print('EEE')
+        except:
+            attempts += 1
+            print('EEE')
+
+    print(f'{num1} + {num2} = {num1 + num2}')
+    return False
+
+def counting_problems(level):
+    score = 0
+    prb_count = 1
+    while prb_count <= 10:
+        num1, num2 = generate_integer(level)
+        correct = tracking_attempts(num1, num2)
+        if correct == True:
+            score += 1
+        prb_count += 1
+    return score
+
+
+if __name__ == "__main__":
+    main()
